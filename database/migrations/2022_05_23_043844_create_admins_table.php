@@ -18,7 +18,7 @@ class CreateAdminsTable extends Migration
             $table->string('nama');
             $table->enum('jeniskelamin',['lakilaki','perempuan']);
             $table->bigInteger('notelpon');
-            $table->string('foto');
+            $table->string('foto'); // gunakan "->nullable()" agar field dapat di kosongkan/ tidak perlu di isi
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

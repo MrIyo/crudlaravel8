@@ -1,20 +1,10 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.admin')
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <title>CRUD LARAVEL 8</title>
-  </head>
-  <body>
-
-    <h1 class="text-center mb-2">Edit Data Admin</h1>
-        <div class="container">
-            <br>
+@section('content')
+<body>
+<br>
+    <h1 class="text-center mb-2 mt-5">Edit Data Admin</h1>
+        <div class="container mb-5">
             <div class="row justify-content-center">
                 <div class="col-8">
                     <div class="card">
@@ -26,18 +16,38 @@
                                   <input type="text" name="nama" value="{{ $data->nama }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                 </div>
 
-                                <div class="mb-3">
-                                  <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
-                                  <select class="form-select" name="jeniskelamin" aria-label="Default select example" >
-                                    <option selected>{{ $data->jeniskelamin }}</option>
-                                    <option value="lakilaki">Laki - Laki</option>
-                                    <option value="perempuan">Perempuan</option>
-                                  </select>
-                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="exampleInputEmail1" class="form-select">Jenis Kelamin</label>
+                                    <select class="form-control custom-select" name="jeniskelamin">
+                                      <option selected disabled>{{ $data->jeniskelamin }}</option>
+                                      <option value="lakilaki">Laki-Laki</option>
+                                      <option value="perempuan">Perempuan</option>
+                                    </select>
+                                  </div>
 
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">No Telp</label>
                                     <input type="number" value="{{ $data->notelpon }}" class="form-control" name="notelpon" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="exampleInputEmail1" class="form-select">Jenis Kendaraan</label>
+                                    <select class="form-control custom-select" name="id_kendaraan">
+                                      <option selected disabled>{{ $data->kendaraans->jenis_kendaraan }}</option>
+                                      {{-- @foreach ($datakendaraan as $data)
+                                        <option value="{{ $data->id }}">{{ $data->jenis_kendaraan }}</option>
+                                      @endforeach --}}
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Plat Nomor</label>
+                                    <input type="text" name="plat_nomor" value="{{ $data->plat_nomor }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Masukan Foto</label>
+                                    <input type="file" class="form-control" name="foto" value="{{ $data->foto }}">
                                 </div>
 
                                 <div class="mb-3">
@@ -73,4 +83,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     -->
   </body>
-</html>
+@endsection

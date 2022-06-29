@@ -2,23 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use App\Models\Admin;
+use App\Models\Kendaraan;
+//use Barryvdh\DomPDF\PDF;
+use Illuminate\Support\Str;
 use App\Exports\AdminExport;
 use App\Imports\AdminImport;
-//use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Routing\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
+
 
 class AdminController extends Controller
 {
+
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     public function index(Request $request){
 
         if($request->has('search')){
             $data = Admin::where('nama','LIKE','%' .$request->search.'%')->paginate(5);
+            Session::put('halaman_url', request()->fullUrl());
         }else{
-            $data = Admin::paginate(5);
+            $data = Admin::paginate(10);
+            Session::put('halaman_url', request()->fullUrl());
         }
 
 
@@ -26,12 +40,40 @@ class AdminController extends Controller
     }
 
     public function tambahadmin(){
-        return view('admin/tambahadmin');
+        $datakendaraan = Kendaraan::all();
+        return view('admin/tambahadmin',compact('datakendaraan'));
     }
 
     public function insertadmin(Request $request){
         //dd($request->all()); /* check menggunakan Array */
-        $data = Admin::create($request->all());
+
+
+        $this->validate($request,[
+                'nama'          =>  'required|min:3|max:24',
+                'jeniskelamin'  =>  'required',
+                'notelpon'      =>  'required|min:9|max:13',
+                'id_kendaraan'  =>  'required',
+                'plat_nomor'    =>  'required',
+                'foto'          =>  'required',
+                'email'         =>  'required',
+                'password'      =>  'required',
+            ]);
+
+        $data = Admin::create([                             // |\
+            'nama' => $request->nama,                       // | \
+            'jeniskelamin' => $request->jeniskelamin,       // |  \
+            'notelpon' => $request->notelpon,               // |   \
+            'id_kendaraan' => $request->id_kendaraan,
+            'plat_nomor' => $request->plat_nomor,
+            'foto' => $request->foto,                       // |    | ini coba input data dengan ngambil field satu" untuk mencoba mencocokan password menggunakan Encrypt
+            'email' => $request->email,                     // |   /
+            'password' => bcrypt($request->password),       // |  /
+            'remember_token' => Str::random(60),            // | /
+            'timestamps' => $request->timestamps,           // |/
+        ]);
+
+        //($request->all());                                // |       Ini input data langsung ambil semua field database "tetapi password belum terenkripsi"
+
         if($request->hasFile('foto')){
             $request->file('foto')->move('fotoadmin/', $request->file('foto')->getClientOriginalName()); // Taroh DI Folder [fotoadmin/]
             $data->foto = $request->file('foto')->getClientOriginalName(); // Ambil namanya aja
@@ -49,6 +91,17 @@ class AdminController extends Controller
     public function updatedata(Request $request, $id){
         $data = Admin::find($id);
         $data->update($request->all());
+
+        if($request->hasFile('foto')){
+            $request->file('foto')->move('fotoadmin/', $request->file('foto')->getClientOriginalName()); // Taroh DI Folder [fotoadmin/]
+            $data->foto = $request->file('foto')->getClientOriginalName(); // Ambil namanya aja
+            $data->save();
+        }
+
+        if (Session('halaman_url')) {
+            return redirect(session('halaman_url'))->with('success','Data Berhasil Di Update');
+        }
+
         return redirect()->route('admin')->with('success','Data Berhasil Di Update');
     }
 
