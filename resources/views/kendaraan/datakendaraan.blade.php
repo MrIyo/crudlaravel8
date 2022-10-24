@@ -94,8 +94,7 @@
 
                             <td>
                                 <a href="/tampilkankendaraan/{{ $row->id }}" class="btn btn-outline-warning">Edit</a>
-                                <a href="/deletekendaraan/{{ $row->id }}" class="btn btn-outline-danger delete" data-id="{{ $row->id }}"
-                                    data-nama="{{ $row->jenis_kendaraan }}">Delete</a>
+                                {{-- <a href="#" class="btn btn-outline-danger delete" data-id="{{ $row->id }}" data-nama="{{ $row->jenis_kendaraan }}">Delete</a> --}}
                             </td>
                         </tr>
                     @endforeach

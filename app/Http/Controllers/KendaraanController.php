@@ -15,6 +15,7 @@ class KendaraanController extends Controller
     public function index()
     {
         $data = Kendaraan::paginate('10');
+        //dd($data);
         return view('kendaraan/datakendaraan', compact('data'));
     }
 
@@ -68,11 +69,11 @@ class KendaraanController extends Controller
         return redirect()->route('datakendaraan')->with('success', 'Data Berhasil di Update');
     }
 
-    public function deletekendaraan($id){
-        $data = Kendaraan::find($id);
-        $data->delete();
-        return redirect()->route('datakendaraan')->with('success','Data Berhasil Di Hapus');
-    }
+    // public function deletekendaraan($id){
+    //     $data = Kendaraan::find($id);
+    //     $data->delete();
+    //     return redirect()->route('datakendaraan')->with('success','Data Berhasil Di Hapus');
+    // }
 
     public function edit(Kendaraan $kendaraan)
     {

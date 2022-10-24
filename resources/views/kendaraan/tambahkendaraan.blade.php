@@ -22,7 +22,7 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a type="submit" href="/admin" class="btn btn-success">Kembali</a>
+                                <a type="submit" href="/datakendaraan" class="btn btn-success">Kembali</a>
                             </form>
                         </div>
                     </div>

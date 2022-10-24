@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use App\Models\User;
 use App\Models\Admin;
-use App\Models\Kendaraan;
 //use Barryvdh\DomPDF\PDF;
+use App\Models\Kendaraan;
 use Illuminate\Support\Str;
 use App\Exports\AdminExport;
 use App\Imports\AdminImport;
@@ -37,6 +38,20 @@ class AdminController extends Controller
 
 
         return view('admin/dataadmin',compact('data'));
+    }
+
+    public function user(Request $request){
+
+        if($request->has('search')){
+            $data = User::where('nama','LIKE','%' .$request->search.'%')->paginate(5);
+            Session::put('halaman_url', request()->fullUrl());
+        }else{
+            $data = User::paginate(10);
+            Session::put('halaman_url', request()->fullUrl());
+        }
+
+
+        return view('user/datauser',compact('data'));
     }
 
     public function tambahadmin(){

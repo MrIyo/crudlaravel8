@@ -9,4 +9,9 @@ class Kendaraan extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $fillable = [
+        'jenis_kendaraan',
+        'created_at',
+        'updated_at',
+    ];
 }

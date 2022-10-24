@@ -27,8 +27,8 @@ class AddJeniskendaraanAndPlatnomerToAdminsTable extends Migration
     public function down()
     {
         Schema::table('admins', function (Blueprint $table) {
-            $table->dropColumn('id_kendaraan')->nullable();
-            $table->dropColumn('plat_nomor')->nullable();
+            $table->dropColumn('id_kendaraan');
+            $table->dropColumn('plat_nomor');
         });
     }
 }

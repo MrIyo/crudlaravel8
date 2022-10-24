@@ -134,7 +134,7 @@
                             {{-- <td>{{ $admin->password }}</td> --}}
                             <td>{{ $admin->created_at }}</td>
                             <td>
-                                <a href="/tampilkandata/{{ $admin->id }}}" class="btn btn-outline-warning">Edit</a>
+                                <a href="/tampilkandata/{{ $admin->id }}" class="btn btn-outline-warning">Edit</a>
                                 <a href="#" class="btn btn-outline-danger delete"
                                     data-nama="{{ $admin->nama }}">Delete</a>
                             </td>

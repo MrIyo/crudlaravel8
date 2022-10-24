@@ -17,13 +17,14 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- Info boxes -->
+                @if(auth()->user()->role=="admin")
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box">
                             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Jumlah Admin</span>
+                                <span class="info-box-text">Total User</span>
                                 <span class="info-box-number">
                                     {{ $jumlahadmin }}
                                     <small>Orang</small>
@@ -36,10 +37,10 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-users"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Jumlah Admin Laki-Laki</span>
+                                <span class="info-box-text">Jumlah Admin</span>
                                 <span class="info-box-number">{{ $jumlahadminlakilaki }}</span>
                             </div>
                             <!-- /.info-box-content -->
@@ -53,10 +54,10 @@
 
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Jumlah Admin Perempuan</span>
+                                <span class="info-box-text">Jumlah User</span>
                                 <span class="info-box-number">{{ $jumlahadminperempuan }}</span>
                             </div>
                             <!-- /.info-box-content -->
@@ -78,8 +79,10 @@
                     </div>
                     <!-- /.col -->
                 </div>
+                @endif
                 <!-- /.row -->
 
+                @if(auth()->user()->role=="admin")
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -148,6 +151,7 @@
                     </div>
                     <!-- /.col -->
                 </div>
+                @endif
 
 
 
@@ -171,16 +175,13 @@
                                     <b>Jenis Kelamin</b> <a class="float-right">{{ Auth::user()->jeniskelamin }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>No Telpon</b> <a class="float-right">{{ Auth::user()->notelpon }}</a>
+                                    <b>No Telpon</b> <a class="float-right">+62 {{ Auth::user()->notelpon }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Jenis Kendaraan</b> <a class="float-right">13,287</a>
+                                    <b>Jenis Kendaraan</b> <a class="float-right">{{ Auth::user()->id_kendaraan }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Plat Nomor</b> <a class="float-right">13,287</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Foto</b> <a class="float-right">13,287</a>
+                                    <b>Plat Nomor</b> <a class="float-right">{{ Auth::user()->plat_nomor }}</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Email</b> <a class="float-right">{{ Auth::user()->email }}</a>
@@ -189,7 +190,7 @@
                                     <b>Terdaftar</b> <a class="float-right">Sejak => {{ Auth::user()->created_at }}</a>
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                            {{-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> --}}
                         </div>
                     </div>
 
@@ -206,40 +207,20 @@
                             <h3 class="profile-username text-center">Paket yang Tersisa</h3>
 
                             <ul class="nav nav-pills flex-column">
+                                <!-- Masukin Perulangan Foreach disini -->
+                                <!-- nanti Paket data  -->
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        United States of America
+                                        Paket Bulanan Mobil
                                         <span class="float-right text-danger">
-                                            <i class="fas fa-arrow-down text-sm"></i>
-                                            12%</span>
+                                            <i class="fas fa-arrow-right text-sm"></i>
+                                            30 Juni 2022</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        India
-                                        <span class="float-right text-success">
-                                            <i class="fas fa-arrow-up text-sm"></i> 4%
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        China
-                                        <span class="float-right text-warning">
-                                            <i class="fas fa-arrow-right text-sm"></i> 0%
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        China
-                                        <span class="float-right text-warning">
-                                            <i class="fas fa-arrow-left text-sm"></i> 0%
-                                        </span>
-                                    </a>
-                                </li>
+                                <!-- Kasih Tutup Foreach Disini-->
                             </ul>
-                            <a href="#" class="btn btn-primary btn-block"><b>Tambah / Perbarui Paket</b></a>
+                            <br>
+                            <a href="/approvedata" class="btn btn-primary btn-block"><b>Tambah / Perbarui Paket</b></a>
                         </div>
                     </div>
                     <!-- /.col -->
